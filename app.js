@@ -1,8 +1,11 @@
 var express = require('express');
-var app =module.exports = express();
+var path = require('path');
+var app = module.exports = express();
 var setting = require('./config.js');
 var fs = require('fs');
-var routes = require('./routes')
+var routes = require('./routes');
+var http = require('http');
+var ejs = require('ejs');
 
 /*
 * 错误日志，和接入日志
@@ -10,19 +13,24 @@ var routes = require('./routes')
 var accessLogfile = fs.createWriteStream('log/access.log',{flags:'a'});
 var errorLogfile = fs.createWriteStream('log/error.log',{flags:'a'});
 
-//app.configure(function () {
-//
-//});
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('port', process.env.PORT || 3000);
+app.engine('.html', ejs.__express);
+app.set('view engine', 'html');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
 //app.get('/home', routes.home);
+app.get('/login',routes.login);
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+if(!module.parent){
+  http.createServer(app).listen(app.get('port'), function(){
+    console.log("Express server listening on port " + app.get('port'));
+  });
+}
 
 
 
