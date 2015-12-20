@@ -6,6 +6,7 @@ var fs = require('fs');
 var routes = require('./routes');
 var http = require('http');
 var ejs = require('ejs');
+var bodyParser = require('body-parser');
 
 /*
 * 错误日志，和接入日志
@@ -20,10 +21,19 @@ app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.logger({stream:accessLogfile}));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+//app.use(cookieParser());
 
 app.get('/', routes.index);
 //app.get('/home', routes.home);
 app.get('/login',routes.login);
+app.post('/register',routes.postRegister);
 
 
 if(!module.parent){

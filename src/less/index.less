@@ -1,0 +1,170 @@
+
+/*共享style*/
+@keyframes myfirst
+{
+	0%   {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.btn-green{
+	width: 7rem;
+	color: rgba(255, 255, 255, 1);
+	border-radius: 4px;
+	background: RGBA(88, 185, 87, 1);
+	border: 1px solid RGBA(72, 175, 70, 0.8); 
+	padding: 0.4rem 0.8rem;
+}
+
+.btn-white{
+	width: 7rem;
+	color: rgba(0, 0, 0, 1);
+	border-radius: 4px;
+	background: RGBA(255, 255, 255, 1);
+	border: 1px solid RGBA(0, 0, 0, 0.2); 
+	padding: 0.4rem 0.8rem;
+}
+.on{
+	margin: 0;
+	opacity: 1;
+}
+/*共享style*/
+
+body{
+	font-size: 16px;
+}
+.nav{
+	position: fixed;
+	top: 25%;
+	right: 2rem;
+	z-index: 2;
+	ul{
+		list-style: none;
+		li{
+			width: 20px;
+			a{
+				display: block;
+				border-radius: 50%;
+				background: RGBA(84, 186, 82, 1);
+				width: 10px;
+				height: 10px;
+				margin: 15px auto;
+				transition: all 1.5s ease;
+			}
+			.on{
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+	
+}
+.lab-head{
+	position: relative;
+	width: 100%;
+	max-height: 536px;
+	background: url("../img/header-bg.jpg") no-repeat center top;
+	background-size: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	.lab-head-title{
+		text-align: center;
+		z-index: 1;
+		img{
+			margin-top: -100px;
+			height: 100px;
+			width: 500px;
+			// animation: myfirst 3s;
+			transition: all 1.5s ease;
+			opacity: 0;
+		}
+		.on{
+			margin: 0;
+			opacity: 1;
+		}
+		.on1{
+			margin-top: 2rem;
+			opacity: 1;
+		}
+		.on2{
+			margin-top: 2rem;
+			opacity: 1;
+		}
+		// .on2:hover{
+		// 	background: RGBA(88, 185, 87, 0.5);
+		// }
+		p{
+			color:rgba(255, 255, 255, 0.7);
+			font-size: 2rem;
+			// animation:myfirst 3s;
+			transition: all 1.5s ease;
+			opacity: 0;
+			margin-top: 100px;
+		}
+		button{
+			// margin-top: 2rem;
+			.btn-green;
+			transition: all 1.5s ease;
+			opacity: 0;
+			margin-top: 100px;
+		}
+		button:hover{
+			background: RGBA(88, 185, 87, 0.8);
+		}
+		button:nth-of-type(1){
+			margin-right: 1rem;
+		}
+	}
+}
+
+.lab-main{
+	height: 500px;
+	width: 100%;
+	background: url("../img/pat.png") no-repeat center top;
+	animation: myfirst 3s;
+	p{
+		padding: 4rem;
+		text-align: center;
+		font-size: 1.8rem;
+		font-weight: bold;
+	}
+	.lab-main-detail{
+		display: flex;
+		width: 100%;
+		text-align: center;
+		div{
+			flex:1;
+			img{
+				border-radius: 10px;
+				zoom:0.9;
+				box-shadow: 0 10px 20px RGBA(0, 0, 0, 0.5);
+			}
+		}
+	}
+}
+
+
+footer{
+	width: 100%;
+	margin-top:5rem;
+	text-align: center;
+	color:rgba(0, 0, 0, 0.5);
+}
+
+.msg{
+	opacity: 0;
+	margin-top: -100px;
+	transition:all 0.5s ease;
+}
+.on3{
+	.on
+}
+
+
+

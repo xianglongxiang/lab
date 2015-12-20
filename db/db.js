@@ -7,10 +7,10 @@ var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/lab');//；连接数据库
 var Schema = mongoose.Schema;   //  创建模型
 
-// 链接错误
-db.on('error', function(error) {
-  console.log(error);
-});
+//// 链接错误
+//db.on('error', function(error) {
+//  console.log(error);
+//});
 
 //定义用户模型
 var User = new Schema({
