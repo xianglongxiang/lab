@@ -15,7 +15,9 @@ var Schema = mongoose.Schema;   //  创建模型
 //定义用户模型
 var User = new Schema({
   username: String,
-  password: String
+  password: String,
+  state: { type: Number, default: 0 },
+  addTime: { type: Date, default: Date.now }
 }); //  定义了一个新的模型，但是此模式还未和users集合有关联
 
 

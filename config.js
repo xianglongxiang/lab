@@ -6,5 +6,8 @@
 module.exports = {
   db: 'lab',
   host: 'localhost',
+  secret: 'hinoc lab',
+  port: 6379,
+  time: 60 * 60
 };
 

@@ -408,3 +408,11 @@ td,
 th {
   padding: 0;
 }
+
+/****我的项目*****/
+footer {
+  width: 100%;
+  margin-top: 5rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
