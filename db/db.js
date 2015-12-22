@@ -20,5 +20,16 @@ var User = new Schema({
   addTime: { type: Date, default: Date.now }
 }); //  定义了一个新的模型，但是此模式还未和users集合有关联
 
+//定义用户模型
+var Issue = new Schema({
+  master: String,
+  title: String,
+  md: String,
+  preview:String,
+  createtime: { type: Date, default: Date.now }
+}); //  定义了一个新的模型，但是此模式还未和users集合有关联
+
+
 
 exports.User = db.model('users', User); //  与users集合关联
+exports.Issue = db.model('issues', Issue); //  与users集合关联

@@ -25,7 +25,7 @@ app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
 app.use(logger({stream:accessLogfile}));
-app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -54,6 +54,7 @@ app.get('/login',routes.login);
 app.post('/register',routes.postRegister);
 app.post('/login',routes.postLogin);
 app.get('/home',routes.home);
+app.post('/createIssue',routes.createIssue);
 
 if(!module.parent){
   http.createServer(app).listen(app.get('port'), function(){

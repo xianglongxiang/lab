@@ -76,9 +76,18 @@ exports.postRegister = function(req, res) {
 exports.home = function(req, res){
   //console.log(req.session);
   if (req.session.user) {
-    res.render('home',{user:req.session.user});
+    res.render('issue',{user:req.session.user});
   } else {
     res.redirect('/')
   }
-
+}
+exports.createIssue = function (req,res) {
+  if (req.session.user) {
+    console.log(req.session.user.username);
+    console.log(req.body.title);
+    console.log(req.body.md);
+    console.log(req.body.preview);
+  } else {
+    res.redirect('/')
+  }
 }

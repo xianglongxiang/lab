@@ -50,7 +50,7 @@ function create_msgbox(w,h,t){//创建弹出对话框的函数
     box.id="msgbox";
     box.className = 'msg';
     box.style.position="fixed";
-    box.style.top = "30%";
+    box.style.top = (window.screen.availHeight - h)/2 + "px";
     box.style.left = (get_width() - w)/2 + "px";
     // box.style.width = w + "px";
     // box.style.height = h + "px";

@@ -7,8 +7,8 @@
     <link rel="icon" href="/img/favicon.png">
     <title>管理项目</title>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../src/css/style.css">
-    <link rel="stylesheet" href="../src/css/issue.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/issue.css">
 </head>
 <body>
 
@@ -28,10 +28,17 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">issues <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">document</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">upload <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">issues <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="lab-issue-create"><a href="#">创建issue</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">issue列表</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">共享文档</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">资料上传 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li><a href="#">Another action</a></li>
@@ -50,15 +57,13 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">blog system</a></li>
+                <li><a href="#">博客系统</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=user.username%> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">个人中心</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">退出登录</a></li>
                     </ul>
                 </li>
             </ul>
@@ -74,7 +79,7 @@
     <div class="row">
         <div class="col-md-1 lab-issue-head">
             <a href="#" title="">
-                <img src="../src/img/favicon.png" alt="">
+                <img src="/img/favicon.png" alt="">
             </a>
         </div>
         <div class="col-md-11 lab-content">
@@ -92,7 +97,7 @@
     <div class="row">
         <div class="col-md-1 lab-issue-head">
             <a href="#" title="">
-                <img src="../src/img/favicon.png" alt="">
+                <img src="/img/favicon.png" alt="">
             </a>
         </div>
         <div class="col-md-11 lab-content">
@@ -109,13 +114,13 @@
     <div class="row lab-issue-top">
         <div class="col-md-1 lab-issue-head">
             <a href="#" title="">
-                <img src="../src/img/favicon.png" alt="">
+                <img src="/img/favicon.png" alt="">
             </a>
         </div>
         <div class="col-md-11 lab-issue-submit">
-            <textarea id="text-input" oninput="this.editor.update()"
+            <textarea class="text-input" oninput="this.editor.update()"
               rows="12" cols="55">Edit at here ,please use **Markdown**.</textarea>
-            <div class="" id='preview'>
+            <div class='preview'>
             
             </div>
             <div class="">
@@ -125,17 +130,17 @@
         
     </div>
 </div>
-
-
+<a id="scrollUp" href="#top" title="">
+    <span class="glyphicon glyphicon-menu-up"></span>
+</a>
 <footer>
     <div>
         <p>© zhanfang 2015</p>
         <p>陕ICP备15014665号-1</p>
     </div>
 </footer>
-
-<!--<script src="public/js/zf/zf.js"></script>-->
-<!--<script src="labpublic/js/common.js"></script>-->
+<!-- <script src="/js/zf/zf.js"></script> -->
+<script src="/js/common.js"></script>
 <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="http://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"></script>
@@ -144,11 +149,51 @@
         this.update = function () {
             preview.innerHTML = markdown.toHTML(input.value);
         };
+        //input的编辑属性，text变化就会触发update
         input.editor = this;
         this.update();
-      }
-      var $ = function (id) { return document.getElementById(id); };
-      new Editor($("text-input"), $("preview"));
-    </script>
+    }
+    $(document).ready(function(){
+        new Editor($(".text-input")[0], $(".preview")[0]);
+        var temp = "<div class='zf-modal' style='border-radius: 10px;background:rgba(255,255,255,1)'><div class='modal-header' style='padding: 9px 15px;border-bottom: 1px solid #eee'><h3 style='margin:0'>创建issue</h3></div><div class='modal-main' style='padding:15px'><input id='title' type='text' name='username' placeholder='issue标题' style='display:block;width:100%;margin: 10px 0px;padding: 10px 12px;border:1px solid #ccc;border-radius: 4px;'></div><div class='lab-issue-submit' style='padding:0 15px'><textarea class='text-input' id='lab-create-input' oninput='this.editor.update()' rows='12' cols='55'>Edit at here ,please use **Markdown**.</textarea><div id='lab-preview-input' class='preview'></div></div><div class='modal-footer' style='padding:14px 15px 15px;background-color: #f5f5f5;border-top:1px solid #ddd;box-shadow: inset 0 1px 0 #ffffff;border-bottom-left-radius:10px;border-bottom-right-radius:10px;overflow: hidden;'><button class='btn-green' style='float: right' onclick='createIssue()'>Submit</button><button class='btn-white' style='margin-right: 10px; float: right;' onclick='removeCon()'>Close</button></div></div>";
+        $('#lab-issue-create').bind('click',function(){
+            msgbox(temp,'',600,876);
+            $('.msg').addClass('on3');
+            new Editor($("#lab-create-input")[0], $("#lab-preview-input")[0]);
+        });
+
+
+        /*点击返回顶部*/
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 50) {
+                $('#scrollUp').fadeIn();
+            } else {
+                $('#scrollUp').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#scrollUp').click(function() {
+            $('#scrollUp').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 200);
+            return false;
+        });
+    });
+    function createIssue() {
+        var title = $('#title')[0].value;
+        var md = $("#lab-create-input")[0].value;
+        var preview = markdown.toHTML(md);
+        $.ajax({type:'POST',url:'/createIssue',dataType: "json",data:{
+            title:title,
+            md:md,
+            preview:preview
+        },success: function (data) {
+            alert(data);
+        }});
+    }
+
+    
+</script>
 </body>
 </html>

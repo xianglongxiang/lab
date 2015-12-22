@@ -38,7 +38,7 @@
 .main .lab-issue-top .lab-issue-submit .lab-issue-btn {
   float: right;
 }
-#preview {
+.preview {
   display: inline-block;
   padding-left: 20px;
   padding-top: 10px;
@@ -46,7 +46,7 @@
   width: 440px;
   overflow: scroll;
 }
-#text-input {
+.text-input {
   border: 0;
   border-right: 1px solid rgba(1, 1, 1, 0.2);
 }

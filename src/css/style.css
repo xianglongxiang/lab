@@ -428,7 +428,51 @@ footer {
   width: 7rem;
   color: rgba(255, 255, 255, 1);
   border-radius: 4px;
-  background: RGBA(88, 185, 87, 1);
+  background: RGBA(88, 185, 87, 0.8);
   border: 1px solid RGBA(72, 175, 70, 0.8); 
   padding: 0.4rem 0.8rem;
 }
+
+.btn-green:hover{
+  background: RGBA(88, 185, 87, 1);
+}
+
+.btn-white{
+  width: 7rem;
+  color: rgba(0, 0, 0, 1);
+  border-radius: 4px;
+  background: RGBA(255, 255, 255, 1);
+  border: 1px solid RGBA(0, 0, 0, 0.2); 
+  padding: 0.4rem 0.8rem;
+}
+
+
+#scrollUp{
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 40px;
+  height: 40px;
+  background: #777;
+  color: #eee;
+  font-size: 2.9rem;
+  text-align: center;
+  border-radius: 100%;
+  z-index: 3;
+}
+
+#scrollUp span{
+  padding-top: 4px;
+}
+
+.msg{
+  opacity: 0;
+  margin-top: -100px;
+  transition:all 0.5s ease;
+}
+
+.on3{
+  margin: 0;
+  opacity: 1;
+}
+
