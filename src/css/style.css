@@ -416,3 +416,19 @@ footer {
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
+
+.navbar{
+  border-radius: 0;
+}
+.container-fluid{
+  width: 980px;
+}
+
+.btn-green{
+  width: 7rem;
+  color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  background: RGBA(88, 185, 87, 1);
+  border: 1px solid RGBA(72, 175, 70, 0.8); 
+  padding: 0.4rem 0.8rem;
+}

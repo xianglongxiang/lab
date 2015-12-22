@@ -1,0 +1,52 @@
+.main .lab-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.main .lab-issue-submit {
+  margin-top: 20px;
+}
+.main .lab-issue-head {
+  padding-top: 20px;
+}
+.main img {
+  zoom: 0.13;
+}
+.main .lab-content {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  border-radius: 10px;
+  background: rgba(247, 247, 247, 0.3);
+  box-shadow: inset -1px -1px 1px rgba(1, 1, 1, 0.1);
+}
+.main .btn-green {
+  margin-left: 62px;
+}
+.main .lab-issue-top {
+  margin-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.main .lab-issue-top .lab-issue-submit {
+  padding: 20px;
+  margin-top: 20px;
+  border: 1px solid rgba(1, 1, 1, 0.1);
+  border-radius: 10px;
+  background: rgba(247, 247, 247, 0.3);
+  box-shadow: inset -1px -1px 1px rgba(1, 1, 1, 0.1);
+}
+.main .lab-issue-top .lab-issue-submit .lab-issue-btn {
+  float: right;
+}
+#preview {
+  display: inline-block;
+  padding-left: 20px;
+  padding-top: 10px;
+  height: 247px;
+  width: 440px;
+  overflow: scroll;
+}
+#text-input {
+  border: 0;
+  border-right: 1px solid rgba(1, 1, 1, 0.2);
+}

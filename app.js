@@ -25,7 +25,7 @@ app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
 app.use(logger({stream:accessLogfile}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

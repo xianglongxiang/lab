@@ -1,0 +1,9 @@
+.main .lab-title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.main .lab-issue-head {
+  padding-top: 20px;
+}
+.main img {
+  zoom: 0.15;
+}

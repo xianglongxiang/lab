@@ -139,7 +139,12 @@ body {
   zoom: 0.9;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
-
+footer {
+  width: 100%;
+  margin-top: 5rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
 .msg {
   opacity: 0;
   margin-top: -100px;
