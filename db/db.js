@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;   //  创建模型
 //  console.log(error);
 //});
 
-//定义用户模型
+//定义用户
 var User = new Schema({
   username: String,
   password: String,
@@ -20,14 +20,22 @@ var User = new Schema({
   addTime: { type: Date, default: Date.now }
 }); //  定义了一个新的模型，但是此模式还未和users集合有关联
 
+//定义评论
+var Comment = new Schema({
+  username: String,
+  md:String,
+  preview:String,
+  commentime:{ type: Date, default: Date.now },
+});
 //定义用户模型
 var Issue = new Schema({
   master: String,
   title: String,
-  md: String,
+  md:String,
   preview:String,
+  comment: [Comment],
   createtime: { type: Date, default: Date.now }
-}); //  定义了一个新的模型，但是此模式还未和users集合有关联
+});
 
 
 

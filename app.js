@@ -50,11 +50,14 @@ app.use(session({
 
 
 app.get('/', routes.index);
-app.get('/login',routes.login);
 app.post('/register',routes.postRegister);
 app.post('/login',routes.postLogin);
 app.get('/home',routes.home);
 app.post('/createIssue',routes.createIssue);
+app.get('/issues',routes.getIssues);
+app.get('/issue',routes.getIssueItem);
+app.post('/comment',routes.addComment);
+app.get('/logout',routes.logout);
 
 if(!module.parent){
   http.createServer(app).listen(app.get('port'), function(){

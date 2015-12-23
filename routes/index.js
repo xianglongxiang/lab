@@ -1,20 +1,17 @@
-var User = require('../db/db').User;
+var db = require('../db/db');
 var crypto = require('crypto');
+var User = db.User;
+var Issue = db.Issue;
 /*
  * 路由管理
  * */
 exports.index = function(req, res){
-  res.render('index');
-}
+  if(req.session.user){
+    res.redirect('issues');
+  }else{
+    res.render('index');
+  }
 
-exports.login = function (req,res) {
-  res.jsonp('login.html',{ user: 'tobi' });
-  res.set({
-    'Content-Type': 'text/plain',
-    'Content-Length': '123',
-    'ETag': '12345'
-  })
-  res.status(200).sendFile('public/login.html');
 }
 
 exports.postLogin = function(req, res) {
@@ -82,12 +79,87 @@ exports.home = function(req, res){
   }
 }
 exports.createIssue = function (req,res) {
-  if (req.session.user) {
-    console.log(req.session.user.username);
-    console.log(req.body.title);
+  var username = req.session.user.username;
+  var md = req.body.md;
+  var preview = req.body.preview;
+  if (username) {
+    console.log();
     console.log(req.body.md);
     console.log(req.body.preview);
+    var issue = new Issue({
+      master:username,
+      title:req.body.title,
+      md:md,
+      preview:preview,
+      comment:[{username:username,md:md,preview:preview}]
+    });
+
+    issue.save(function (err,doc) {
+      if(err) {
+        console.log(doc);
+        res.json({state:-1,issue:doc});
+      }
+      if(doc){
+        res.json({state:1,issue:doc});
+      }else{
+        res.json({state:-1})
+      }
+    });
   } else {
     res.redirect('/')
   }
 }
+
+exports.getIssues = function (req, res) {
+  if(req.session.user) {
+    var query = {title:1,md:1,preview:1,master:1,createtime:1};
+    Issue.find({},query,function (err, doc) {
+      res.render('issue',{user:req.session.user,issues:doc});
+    });
+  }
+};
+
+exports.getIssueItem = function (req, res) {
+  if(req.session.user) {
+    Issue.findOne({_id:req.query.id}, function (err,doc) {
+      res.render('issueitem',{
+        user:req.session.user,
+        id:doc._id,
+        title:doc.title,
+        master:doc.master,
+        createtime:doc.createtime,
+        comments:doc.comment
+      });
+    });
+  }
+};
+
+exports.addComment = function (req, res) {
+  var user = req.session.user;
+  if(user){
+    var commentItem = {
+      username:user.username,
+      md:req.body.md,
+      preview:req.body.preview
+    };
+    //console.log(commentItem);
+
+    Issue.findOne({_id:req.body.id},function(err,issue){
+      issue.comment.push(commentItem);
+      issue.save(function (err,doc) {
+        if(err){
+          console.log(err);
+          res.json({state:-1});
+        }else{
+          res.json({state:1,date:Date.now(),comment:commentItem});
+        }
+
+      });
+    });
+  }
+};
+  
+exports.logout = function (req,res) {
+  req.session.user = null;
+  res.redirect('/');
+};

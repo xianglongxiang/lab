@@ -2,11 +2,6 @@
 //加入购物车弹窗方法
 function msgbox(content,func,height,width){
     create_mask();
-    // var temp="<div style=\"border-radius: 5px ;background-color: RGBA(255, 255, 255, 0.8); font-weight: bold;font-size: 16px;\" >"
-    //     +"<div style=\"line-height:25px;border-bottom: 1px solid #CCC; padding:10px;text-align: center;\">"+title+"</div>"
-    //     +"<div style=\"text-align:center;\"><input type='button' style=\"background-color: RGBA(255, 255, 255, 0.8);border-radius: 0;border-bottom-left-radius: 5px;border:0; border-right: 1px solid #ccc; width:130px; height:40px;\" value='继续逛逛'id=\"msgconfirmb\" onclick=\"removeCon();\"><input type='button' style=\"background-color: RGBA(255, 255, 255, 0.8);border-radius: 0;border-bottom-right-radius: 5px;border:0;width:130px; height:40px;\" value='去结算' id=\"msgcancelb\" onclick=\"goCar();\">";
-    //     +"</div></div>";
-
     create_msgbox(width,height,content);
 }
 
@@ -39,6 +34,7 @@ function create_mask(){//创建遮罩层的函数
     mask.style.left="0px";
     mask.style.width = get_width() + "px";
     mask.style.height = get_height() + "px";
+    mask.style.minHeight = "800px";
     mask.style.zIndex = 10;
     mask.onclick = function(){
         removeCon();
@@ -107,5 +103,40 @@ function load_func(){
     window.onscroll=re_show;
 }
 
+
+function createIssue() {
+    var title = $('#title')[0].value;
+    var md = $("#lab-create-input")[0].value;
+    var preview = markdown.toHTML(md);
+    $.ajax({type:'POST',url:'/createIssue',dataType: "json",data:{
+        title:title,
+        md:md,
+        preview:preview
+    },success: function (data) {
+      if(data.state == 1){
+        window.location.href = '/issues';
+      }else if(data.state == -1){
+        alert("issue创建失败！");
+      }
+    }});
+}
+
+
+/*点击返回顶部*/
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 50) {
+        $('#scrollUp').fadeIn();
+    } else {
+        $('#scrollUp').fadeOut();
+    }
+});
+// scroll body to 0px on click
+$('#scrollUp').click(function() {
+    $('#scrollUp').tooltip('hide');
+    $('body,html').animate({
+        scrollTop: 0
+    }, 200);
+    return false;
+});
 
 
