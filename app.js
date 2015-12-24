@@ -4,13 +4,14 @@ var app = module.exports = express();
 var config = require('./config.js');
 var fs = require('fs');
 var routes = require('./routes');
-var http = require('http');
 var ejs = require('ejs');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session'); //如果要使用session，需要单独包含这个模块
 var RedisStore = require('connect-redis')(session);
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
 
 /*
 * 错误日志，和接入日志
@@ -58,9 +59,17 @@ app.get('/issues',routes.getIssues);
 app.get('/issue',routes.getIssueItem);
 app.post('/comment',routes.addComment);
 app.get('/logout',routes.logout);
+app.get('/doc',routes.getdoc);
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
 if(!module.parent){
-  http.createServer(app).listen(app.get('port'), function(){
+  server.listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
   });
 }

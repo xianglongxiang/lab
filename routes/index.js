@@ -158,7 +158,10 @@ exports.addComment = function (req, res) {
     });
   }
 };
-  
+
+exports.getdoc = function (req,res) {
+  res.render('doc');
+}
 exports.logout = function (req,res) {
   req.session.user = null;
   res.redirect('/');
