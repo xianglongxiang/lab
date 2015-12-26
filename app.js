@@ -63,6 +63,9 @@ app.post('/createDoc',routes.createDoc);
 app.get('/docs',routes.getdocs);
 app.get('/doc',routes.getdoc);
 app.post('/submitDoc',routes.submitDoc);
+app.get('/file',routes.getfile);
+app.post('/fileupload',routes.upload);
+app.get('/filedownload',routes.download);
 
 
 // 房间用户名单
