@@ -28,15 +28,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">issues <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li id="lab-issue-create"><a href="#">创建issue</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/issues">issue列表</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">共享文档</a></li>
+                <li><a href="/issues">issue</a></li>
+                <li><a href="/docs">共享文档</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">资料上传 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -58,20 +51,17 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">博客系统</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=user.username%> <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">个人中心</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="/logout">退出登录</a></li>
-                    </ul>
-                </li>
+                <li><a href="#"><%=user.username%></a></li>
+                <li><a href="/logout">退出</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
 <div class="container-fluid main">
+    <div class="issue-create">
+        <button class="btn-green" id="create-doc">创建issue</button>
+    </div>
     <% issues.forEach(function(issue){ %>
     <div class="row issue">
         <div class="col-md-1 lab-issue-head">
@@ -124,7 +114,7 @@
 
     $(document).ready(function(){
         var temp = "<div class='zf-modal' style='border-radius: 10px;background:rgba(255,255,255,1)'><div class='modal-header' style='padding: 9px 15px;border-bottom: 1px solid #eee'><h3 style='margin:0'>创建issue</h3></div><div class='modal-main' style='padding:15px'><input id='title' type='text' name='username' placeholder='issue标题' style='display:block;width:100%;margin: 10px 0px;padding: 10px 12px;border:1px solid #ccc;border-radius: 4px;'></div><div class='lab-issue-submit' style='padding:0 15px'><textarea class='text-input' id='lab-create-input' oninput='this.editor.update()' rows='12' cols='55'>Edit at here ,please use **Markdown**.</textarea><div id='lab-preview-input' class='preview'></div></div><div class='modal-footer' style='padding:14px 15px 15px;background-color: #f5f5f5;border-top:1px solid #ddd;box-shadow: inset 0 1px 0 #ffffff;border-bottom-left-radius:10px;border-bottom-right-radius:10px;overflow: hidden;'><button class='btn-green' style='float: right' onclick='createIssue1()'>Submit</button><button class='btn-white' style='margin-right: 10px; float: right;' onclick='removeCon()'>Close</button></div></div>";
-        $('#lab-issue-create').bind('click',function(){
+        $('#create-doc').bind('click',function(){
             msgbox(temp,'',600,876);
             $('.msg').addClass('on3');
             new Editor($("#lab-create-input")[0], $("#lab-preview-input")[0]);

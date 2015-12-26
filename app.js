@@ -97,7 +97,11 @@ io.sockets.on('connection', function (socket) {
     if (roomInfo[roomID].indexOf(user) === -1) {
       return false;
     }
-    io.to(roomID).emit('md', user, md);
+    console.log(md);
+    //emit to 'room' except this socket client
+    socket.broadcast.to(roomID).emit('md',user, md);
+    //emit to all socket client in the room
+    //io.to(roomID).emit('md', user, md);
   });
 
   //socket.emit('join', { connect: 'ok' });

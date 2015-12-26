@@ -122,7 +122,7 @@ exports.getIssues = function (req, res) {
 };
 
 exports.getIssueItem = function (req, res) {
-  if(req.session.user) {
+  if(req.session.user && req.query.id) {
     Issue.findOne({_id:req.query.id}, function (err,doc) {
       res.render('issueitem',{
         user:req.session.user,
@@ -182,7 +182,7 @@ exports.createDoc = function (req,res) {
       console.log(doc);
       if(err) {
         console.log(doc);
-        res.json({state:-1,doc:doc});
+        res.json({state:-1});
       }
       if(doc){
         res.json({state:1,doc:doc});
@@ -197,8 +197,9 @@ exports.createDoc = function (req,res) {
 
 exports.getdocs = function (req,res) {
   if(req.session.user) {
-    var query = {title:1,md:1,master:1,createtime:1};
-    Doc.find({},query,function (err, doc) {
+    var query = {title:1,md:1,master:1,createtime:1,savetime:1};
+
+    Doc.find({},query,{sort:{createtime:-1}},function (err, doc) {
       res.render('docs',{user:req.session.user,docs:doc});
     });
   }else{
@@ -207,9 +208,10 @@ exports.getdocs = function (req,res) {
 }
 
 exports.getdoc = function (req,res) {
-  if(req.session.user) {
-    var query = {title:1,md:1,master:1,createtime:1};
+  if(req.session.user && req.query.id) {
+    var query = {title:1,md:1,master:1,createtime:1,savetime:1};
     Doc.findOne({_id:req.query.id},query, function (err,doc) {
+      console.log(doc);
       res.render('doc',{user:req.session.user,doc:doc});
     });
   }else{
@@ -230,6 +232,7 @@ exports.submitDoc = function (req, res) {
       console.log(doc)
       doc.submitdoc.push(submitdoc);
       doc.md = req.body.md;
+      doc.savetime = Date.now();
       doc.save(function (err,doc) {
         console.log(doc);
         if(err){

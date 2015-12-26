@@ -88,22 +88,6 @@ function removeCon(){
     document.body.removeChild(msgbox);
 }
 
-function re_show(){
-    /*
-     重新显示遮罩层以及弹出窗口元素
-     */
-    re_pos();
-    re_mask();
-}
-function load_func(){
-    /*
-     加载函数,覆盖window的onresize和onscroll函数
-     */
-    window.onresize=re_show;
-    window.onscroll=re_show;
-}
-
-
 function createIssue() {
     var title = $('#title')[0].value;
     var md = $("#lab-create-input")[0].value;

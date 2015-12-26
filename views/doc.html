@@ -7,19 +7,26 @@
     <link rel="stylesheet" href="/css/doc.css"/>
 </head>
 <body>
-    <div class="container-fluid">
-        <h1><%=doc.title%></h1>
-    </div>
-    <div>
-        <textarea id="md-comment" class="text-input" oninput="this.editor.update()"
-                      rows="12" cols="55" onchange="change()"></textarea>
-        <div id="preview-comment" class='preview'>
+    <div class="container-fluid doc">
+        <div class="doc-head">
+            <h1><%=doc.title%></h1>
+            <small>上次修改时间：<%=doc.savetime%></small>
+            <small id="user"></small>
+        </div>
+        
+        <div class="edit">
+            <textarea id="md-comment" class="text-input" oninput="this.editor.update()" onkeyup="change()" contenteditable="true">
+            </textarea>
+            <div id="preview-comment" class='preview'>
 
+            </div>
         </div>
-        <div>
-            <button class="btn-green lab-issue-btn" onclick="submitDoc()">Submit</button>
+        <div class="doc-footer">
+            <button class="btn-white" onclick="window.location.href = '/docs'">退出</button>
+            <button class="btn-green lab-issue-btn" onclick="submitDoc()">保存并退出</button>
         </div>
     </div>
+
     <script src="http://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/zf/zf.js"></script>
@@ -58,10 +65,7 @@
                 if(data.state == -1){
                     alert("提交失败，请重新提交！");
                 }else if(data.state == 1){
-//                    var now = new Date(data.date);
-//                    now = now.toLocaleDateString();
-//                    var insert = "<div class='row issue-main'><div class='col-md-1 lab-issue-head'><a href='#' title=''><img src='/img/favicon.png' alt=''></a></div><div class='col-md-11 lab-content'><small><strong>" + data.comment.username + "</strong> </small><small style='float: right'>" + now + "</small><div class='md1'>" + data.comment.preview + "</div></div></div>";
-//                    $('.issue-main:last').after(insert);
+                    window.location.href = "/docs";
                 }
             }});
         }
@@ -72,8 +76,8 @@
         }
         // 监听消息
         socket.on('md', function (userName, msg) {
-            alert(userName);
-            alert(msg);
+            zf('#user')[0].innerHTML = "正在编辑的用户：" + userName;
+            zf("#md-comment")[0].innerText = msg;
         });
     </script>
 </body>

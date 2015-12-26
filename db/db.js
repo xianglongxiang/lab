@@ -48,6 +48,7 @@ var Doc = new Schema({
   title: String,
   md:String,
   submitdoc: [SubmitDoc],
+  savetime:{ type: Date, default: Date.now },
   createtime: { type: Date, default: Date.now }
 });
 

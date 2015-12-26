@@ -1,0 +1,44 @@
+body {
+  background: #f2f5e9;
+}
+.doc {
+  margin: 0 auto;
+  min-height: 10000px;
+  background: #ffffff;
+}
+.doc .doc-head {
+  text-align: center;
+  padding: 20px 0;
+  margin: 0 auto;
+}
+.doc .doc-head h1 {
+  padding: 0 0 10px;
+  margin: 0;
+}
+.doc .edit {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  overflow: hidden;
+}
+.doc .edit .text-input {
+  width: 450px;
+  float: left;
+  min-height: 600px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border: 0;
+}
+.doc .edit .preview {
+  float: right;
+  width: 460px;
+  word-break: break-word;
+}
+.doc .doc-footer {
+  position: fixed;
+  width: 960px;
+  padding: 20px 0 20px 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px -2px 7px -3px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  bottom: 0;
+}
