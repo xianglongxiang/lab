@@ -2,6 +2,7 @@ var db = require('../db/db');
 var crypto = require('crypto');
 var User = db.User;
 var Issue = db.Issue;
+var Doc = db.Doc;
 /*
  * 路由管理
  * */
@@ -34,7 +35,6 @@ exports.postLogin = function(req, res) {
     }else{
         req.session.user = doc[0];
         res.json({state:'1'});
-
     }
   });
 
@@ -116,6 +116,8 @@ exports.getIssues = function (req, res) {
     Issue.find({},query,function (err, doc) {
       res.render('issue',{user:req.session.user,issues:doc});
     });
+  }else{
+    res.redirect('/');
   }
 };
 
@@ -131,6 +133,8 @@ exports.getIssueItem = function (req, res) {
         comments:doc.comment
       });
     });
+  }else{
+    res.redirect('/');
   }
 };
 
@@ -156,12 +160,92 @@ exports.addComment = function (req, res) {
 
       });
     });
+  }else{
+    res.redirect('/');
   }
 };
 
-exports.getdoc = function (req,res) {
-  res.render('doc');
+exports.createDoc = function (req,res) {
+  var username = req.session.user.username;
+  var md = req.body.md;
+  if (username) {
+    console.log();
+    console.log(req.body.md);
+    var doc = new Doc({
+      master:username,
+      title:req.body.title,
+      md:md,
+      submitdoc:[{username:username,md:md}]
+    });
+
+    doc.save(function (err,doc) {
+      console.log(doc);
+      if(err) {
+        console.log(doc);
+        res.json({state:-1,doc:doc});
+      }
+      if(doc){
+        res.json({state:1,doc:doc});
+      }else{
+        res.json({state:-1})
+      }
+    });
+  } else {
+    res.redirect('/');
+  }
 }
+
+exports.getdocs = function (req,res) {
+  if(req.session.user) {
+    var query = {title:1,md:1,master:1,createtime:1};
+    Doc.find({},query,function (err, doc) {
+      res.render('docs',{user:req.session.user,docs:doc});
+    });
+  }else{
+    res.redirect('/');
+  }
+}
+
+exports.getdoc = function (req,res) {
+  if(req.session.user) {
+    var query = {title:1,md:1,master:1,createtime:1};
+    Doc.findOne({_id:req.query.id},query, function (err,doc) {
+      res.render('doc',{user:req.session.user,doc:doc});
+    });
+  }else{
+    res.redirect('/');
+  }
+}
+
+exports.submitDoc = function (req, res) {
+  var user = req.session.user;
+  if(user){
+    var submitdoc = {
+      username:user.username,
+      md:req.body.md,
+    };
+    console.log(submitdoc);
+
+    Doc.findOne({_id:req.body.id},function(err,doc){
+      console.log(doc)
+      doc.submitdoc.push(submitdoc);
+      doc.md = req.body.md;
+      doc.save(function (err,doc) {
+        console.log(doc);
+        if(err){
+          console.log(err);
+          res.json({state:-1});
+        }else{
+          res.json({state:1,date:Date.now()});
+        }
+
+      });
+    });
+  }else{
+    res.redirect('/');
+  }
+};
+
 exports.logout = function (req,res) {
   req.session.user = null;
   res.redirect('/');

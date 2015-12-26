@@ -4,16 +4,77 @@
     <meta charset="UTF-8">
     <title>共享文档</title>
     <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/doc.css"/>
 </head>
 <body>
+    <div class="container-fluid">
+        <h1><%=doc.title%></h1>
+    </div>
+    <div>
+        <textarea id="md-comment" class="text-input" oninput="this.editor.update()"
+                      rows="12" cols="55" onchange="change()"></textarea>
+        <div id="preview-comment" class='preview'>
 
-<script src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io.connect('http://demozhan.com:3000');
-    socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
-    });
-</script>
+        </div>
+        <div>
+            <button class="btn-green lab-issue-btn" onclick="submitDoc()">Submit</button>
+        </div>
+    </div>
+    <script src="http://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/zf/zf.js"></script>
+    <script>
+        var socket = io.connect('http://demozhan.com:3000');
+        zf.ready(function () {
+            var md = "<%=doc.md%>";
+            var username = "<%=user.username%>";
+            if(md != undefined){
+                zf('#md-comment')[0].innerText = md;
+            }
+
+            socket.emit('join', username);
+
+            new Editor(zf("#md-comment")[0], zf("#preview-comment")[0]);
+        });
+
+
+        //markdown
+        function Editor(input, preview) {
+            this.update = function () {
+                preview.innerHTML = markdown.toHTML(input.value);
+            };
+            //input的编辑属性，text变化就会触发update
+            input.editor = this;
+            this.update();
+        }
+
+        function submitDoc(){
+            var md = zf('#md-comment')[0].value;
+            var id = "<%=doc._id%>";
+            zf.ajax({url:'/submitDoc',type:'POST',data:{
+                id:id,
+                md:md,
+            },success: function (data) {
+                if(data.state == -1){
+                    alert("提交失败，请重新提交！");
+                }else if(data.state == 1){
+//                    var now = new Date(data.date);
+//                    now = now.toLocaleDateString();
+//                    var insert = "<div class='row issue-main'><div class='col-md-1 lab-issue-head'><a href='#' title=''><img src='/img/favicon.png' alt=''></a></div><div class='col-md-11 lab-content'><small><strong>" + data.comment.username + "</strong> </small><small style='float: right'>" + now + "</small><div class='md1'>" + data.comment.preview + "</div></div></div>";
+//                    $('.issue-main:last').after(insert);
+                }
+            }});
+        }
+
+        function change(){
+            var md = zf('#md-comment')[0].value;
+            socket.emit('message',md);
+        }
+        // 监听消息
+        socket.on('md', function (userName, msg) {
+            alert(userName);
+            alert(msg);
+        });
+    </script>
 </body>
 </html>

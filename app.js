@@ -59,10 +59,48 @@ app.get('/issues',routes.getIssues);
 app.get('/issue',routes.getIssueItem);
 app.post('/comment',routes.addComment);
 app.get('/logout',routes.logout);
+app.post('/createDoc',routes.createDoc);
+app.get('/docs',routes.getdocs);
 app.get('/doc',routes.getdoc);
+app.post('/submitDoc',routes.submitDoc);
+
+
+// 房间用户名单
+var roomInfo = {};
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
+
+  var url = socket.request.headers.referer;
+  var splited = url.split('=');
+  var roomID = splited[splited.length - 1];   // 获取房间ID
+  var user = '';
+
+  socket.on('join', function (username) {
+    user = username;
+    console.log(username);
+
+     //将用户昵称加入房间名单中
+    if (!roomInfo[roomID]) {
+      roomInfo[roomID] = [];
+    }
+    roomInfo[roomID].push(user);
+
+    socket.join(roomID);    // 加入房间
+    // 通知房间内人员
+    //io.to(roomID).emit('sys', user + '加入了房间', roomInfo[roomID]);
+    console.log(user + '加入了' + roomID);
+  });
+
+  // 接收用户消息,发送相应的房间
+  socket.on('message', function (md) {
+    // 验证如果用户不在房间内则不给发送
+    if (roomInfo[roomID].indexOf(user) === -1) {
+      return false;
+    }
+    io.to(roomID).emit('md', user, md);
+  });
+
+  //socket.emit('join', { connect: 'ok' });
   socket.on('my other event', function (data) {
     console.log(data);
   });

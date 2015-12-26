@@ -37,7 +37,20 @@ var Issue = new Schema({
   createtime: { type: Date, default: Date.now }
 });
 
+var SubmitDoc = new Schema({
+  username: String,
+  md:String,
+  submittime:{ type: Date, default: Date.now },
+});
 
+var Doc = new Schema({
+  master: String,
+  title: String,
+  md:String,
+  submitdoc: [SubmitDoc],
+  createtime: { type: Date, default: Date.now }
+});
 
 exports.User = db.model('users', User); //  与users集合关联
 exports.Issue = db.model('issues', Issue); //  与users集合关联
+exports.Doc = db.model('docs', Doc); //  与users集合关联

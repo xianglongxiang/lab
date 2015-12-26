@@ -2,9 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="/img/favicon.png">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/docs.css"/>
+    <title>共享文档</title>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">HINOC</a>
+        </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">issues <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="lab-issue-create"><a href="#">创建issue</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/issues">issue列表</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">共享文档</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">资料上传 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">博客系统</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=user.username%> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">个人中心</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/logout">退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid docs">
+    <div class="docs-create">
+        <button class="btn-green" id="create-doc">创建文档</button>
+    </div>
+    <% docs.forEach(function(doc){ %>
+    <div class="docs-item" onclick="window.location.href = '/doc?id=<%=doc._id%>'">
+        <h4><%=doc.title%></h4>
+        <small>创建者：<%=doc.master%></small>
+        <div class="docs-preview">
+            <%=doc.md%>
+        </div>
+    </div>
+    <% }) %>
+    <div class="docs-item">
+
+    </div>
+    <div class="docs-item">
+
+    </div>
+    <div class="docs-item">
+
+    </div>
+    <div class="docs-item">
+
+    </div>
+</div>
+
+
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script >
+    $(document).ready(function(){
+        var temp = "<div class='zf-modal' style='border-top-left-radius: 10px;border-top-right-radius: 10px;background:rgba(255,255,255,1)'><div class='modal-header' style='padding: 9px 15px;border-bottom: 1px solid #eee'><h3 style='margin:0'>创建共享文档</h3></div><div class='modal-main' style='padding:15px'><input id='title' type='text' name='username' placeholder='标题' style='display:block;width:500px;margin: 10px 0px;padding: 10px 12px;border:1px solid #ccc;border-radius: 4px;'></div></div><div class='modal-footer' style='padding:14px 15px 15px;background-color: #f5f5f5;border-top:1px solid #ddd;box-shadow: inset 0 1px 0 #ffffff;border-bottom-left-radius:10px;border-bottom-right-radius:10px;overflow: hidden;'><button class='btn-green' style='float: right' onclick='createDoc()'>Submit</button><button class='btn-white' style='margin-right: 10px; float: right;' onclick='removeCon()'>Close</button></div></div>";
+        $('#create-doc').bind('click',function(){
+            msgbox(temp,'',400,530);
+            $('.msg').addClass('on3');
+            new Editor($("#lab-create-input")[0], $("#lab-preview-input")[0]);
+        });
+        var i = 0;
+        for(i;i < $('.md').length;i++){
+            $('.md1')[i].innerHTML = $('.md')[i].innerText;
+        }
+    });
+
+    function createDoc(){
+        var title = $('#title')[0].value;
+        $.ajax({type:'POST',url:'/createDoc',dataType: "json",data:{
+            title:title,
+        },success: function (data) {
+            if(data.state == 1){
+                alert(data);
+//                var insert = "<div class='row issue'><div class='col-md-1 lab-issue-head'><a href='#' title=''><img src='/img/favicon.png' alt=''></a></div><div class='col-md-11 lab-content' onclick='window.location.href = "+ "'/issue?id=" + data.issue._id +"'><h3>"+ data.issue.title+"</h3><small><strong>" + data.issue.master + "</strong> opened this issue on " + data.issue.createtime + "</small><div class='md1'>" + data.issue.preview + "</div></div></div>";
+//                if($('.issue').length != 0){
+//                    $('.issue:last').after(insert);
+//                }else{
+//                    $('.main').append(insert);
+//                }
+
+            }else if(data.state == -1){
+                alert("issue创建失败！");
+            }
+        }});
+    }
+</script>
 </body>
 </html>
