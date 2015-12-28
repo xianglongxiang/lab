@@ -1,0 +1,13 @@
+.docs-up {
+  display: flex;
+  align-items: center;
+}
+.docs-up label {
+  flex: 2;
+}
+.docs-up input {
+  flex: 3;
+}
+.docs-up button {
+  flex: 1;
+}

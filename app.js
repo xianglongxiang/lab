@@ -25,7 +25,7 @@ app.set('port', process.env.PORT || 3000);
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
 
-app.use(logger({stream:accessLogfile}));
+//app.use(logger({stream:accessLogfile}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // parse application/x-www-form-urlencoded
@@ -65,8 +65,7 @@ app.get('/doc',routes.getdoc);
 app.post('/submitDoc',routes.submitDoc);
 app.get('/file',routes.getfile);
 app.post('/fileupload',routes.upload);
-app.get('/filedownload',routes.download);
-
+app.get('/download',routes.download);
 
 // 房间用户名单
 var roomInfo = {};
@@ -80,7 +79,6 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('join', function (username) {
     user = username;
-    console.log(username);
 
      //将用户昵称加入房间名单中
     if (!roomInfo[roomID]) {
@@ -88,10 +86,11 @@ io.sockets.on('connection', function (socket) {
     }
     roomInfo[roomID].push(user);
 
+    console.log(roomInfo);
+
     socket.join(roomID);    // 加入房间
     // 通知房间内人员
     //io.to(roomID).emit('sys', user + '加入了房间', roomInfo[roomID]);
-    console.log(user + '加入了' + roomID);
   });
 
   // 接收用户消息,发送相应的房间
@@ -108,9 +107,9 @@ io.sockets.on('connection', function (socket) {
   });
 
   //socket.emit('join', { connect: 'ok' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+  //socket.on('my other event', function (data) {
+  //  console.log(data);
+  //});
 });
 
 if(!module.parent){

@@ -52,6 +52,14 @@ var Doc = new Schema({
   createtime: { type: Date, default: Date.now }
 });
 
+var Fileinfo = new Schema({
+  master:String,
+  filename:String,
+  path:String,
+  createtime: { type: Date, default: Date.now }
+});
+
 exports.User = db.model('users', User); //  与users集合关联
 exports.Issue = db.model('issues', Issue); //  与users集合关联
 exports.Doc = db.model('docs', Doc); //  与users集合关联
+exports.Fileinfo = db.model('files',Fileinfo); //  与users集合关联

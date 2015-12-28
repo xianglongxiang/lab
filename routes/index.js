@@ -6,6 +6,7 @@ var fs = require('fs');  //node.js核心的文件处理模块
 var User = db.User;
 var Issue = db.Issue;
 var Doc = db.Doc;
+var Fileinfo = db.Fileinfo;
 /*
  * 路由管理
  * */
@@ -15,7 +16,6 @@ exports.index = function(req, res){
   }else{
     res.render('index');
   }
-
 }
 
 exports.postLogin = function(req, res) {
@@ -28,7 +28,6 @@ exports.postLogin = function(req, res) {
   var query = {username: username};
   User.find(query,function(err, doc){    //count返回集合中文档的数量，和 find 一样可以接收查询条件。query 表示查询的条件
     if(err) console.log(err);
-    console.log(doc);
     if(doc.length == 0){
       res.json({state:'-1'});
     }else if(doc[0].password != password){
@@ -53,7 +52,6 @@ exports.postRegister = function(req, res) {
   var query = {username: username};
   User.find(query,function(err, doc){    //count返回集合中文档的数量，和 find 一样可以接收查询条件。query 表示查询的条件
     if(err) console.log(err);
-    console.log(doc);
     if(doc != ""){
       //用户已存在
       res.json({state:'-3'});
@@ -86,9 +84,6 @@ exports.createIssue = function (req,res) {
   var md = req.body.md;
   var preview = req.body.preview;
   if (username) {
-    console.log();
-    console.log(req.body.md);
-    console.log(req.body.preview);
     var issue = new Issue({
       master:username,
       title:req.body.title,
@@ -99,8 +94,8 @@ exports.createIssue = function (req,res) {
 
     issue.save(function (err,doc) {
       if(err) {
-        console.log(doc);
-        res.json({state:-1,issue:doc});
+        console.log(err);
+        res.json({state:-1});
       }
       if(doc){
         res.json({state:1,issue:doc});
@@ -182,7 +177,6 @@ exports.createDoc = function (req,res) {
     });
 
     doc.save(function (err,doc) {
-      console.log(doc);
       if(err) {
         console.log(doc);
         res.json({state:-1});
@@ -203,6 +197,10 @@ exports.getdocs = function (req,res) {
     var query = {title:1,md:1,master:1,createtime:1,savetime:1};
 
     Doc.find({},query,{sort:{createtime:-1}},function (err, doc) {
+      if(err){
+        console.log(err);
+        return;
+      }
       res.render('docs',{user:req.session.user,docs:doc});
     });
   }else{
@@ -214,12 +212,16 @@ exports.getdoc = function (req,res) {
   if(req.session.user && req.query.id) {
     var query = {title:1,md:1,master:1,createtime:1,savetime:1};
     Doc.findOne({_id:req.query.id},query, function (err,doc) {
-      console.log(doc);
+      if(err){
+        console.log(err);
+        return;
+      }
       res.render('doc',{user:req.session.user,doc:doc});
     });
   }else{
     res.redirect('/');
   }
+  //res.render('doc');
 }
 
 exports.submitDoc = function (req, res) {
@@ -232,6 +234,10 @@ exports.submitDoc = function (req, res) {
     console.log(submitdoc);
 
     Doc.findOne({_id:req.body.id},function(err,doc){
+      if(err){
+        console.log(err);
+        return;
+      }
       console.log(doc)
       doc.submitdoc.push(submitdoc);
       doc.md = req.body.md;
@@ -253,50 +259,81 @@ exports.submitDoc = function (req, res) {
 };
 
 exports.getfile = function (req,res) {
-  res.render('files');
+  if(req.session.user){
+    Fileinfo.find({}, function (err,files) {
+      if(err){
+        console.log(err);
+        return;
+      }
+      console.log(files);
+      res.render('files',{user:req.session.user,files:files});
+    })
+  }else{
+    res.redirect('/')
+  }
 }
 
-exports.upload = function(req, res, next){
-  var message = '';
-  console.log('123');
+exports.upload = function(req, res){
+  if(req.session.user){
+    var form = new formidable.IncomingForm();   //创建上传表单
+    form.encoding = 'utf-8';        //设置编辑
+    form.uploadDir = 'public/upload/';     //设置上传目录
+    form.keepExtensions = true;     //保留后缀
+    form.maxFieldsSize = 2 * 1024 * 1024;   //文件大小
 
-  var form = new formidable.IncomingForm();   //创建上传表单
-  form.encoding = 'utf-8';        //设置编辑
-  form.uploadDir = 'public/upload/';     //设置上传目录
-  form.keepExtensions = true;     //保留后缀
-  form.maxFieldsSize = 2 * 1024 * 1024;   //文件大小
+    form.parse(req, function(err, fields, files) {
+      if (err) {
+        console.log(err);
+        return;
+      }
 
-  form.parse(req, function(err, fields, files) {
-    if (err) {
-      console.log(err);
-    }
+      var filename = files.resource.name;
 
-    var filename = files.resource.name;
-    console.log(filename);
+      // 对文件名进行处理，以应对上传同名文件的情况
+      var nameArray = filename.split('.');
+      var type = nameArray[nameArray.length-1];
+      var name = '';
+      for(var i=0; i<nameArray.length-1; i++){
+        name = name + nameArray[i];
+      }
+      var rand = Math.random()*100 + 900;
+      var num = parseInt(rand, 10);
 
-    // 对文件名进行处理，以应对上传同名文件的情况
-    var nameArray = filename.split('.');
-    var type = nameArray[nameArray.length-1];
-    var name = '';
-    for(var i=0; i<nameArray.length-1; i++){
-      name = name + nameArray[i];
-    }
-    var rand = Math.random()*100 + 900;
-    var num = parseInt(rand, 10);
+      var avatarName = name + num +  '.' + type;
 
-    var avatarName = name + num +  '.' + type;
+      var newPath = form.uploadDir + avatarName ;
+      var file = new Fileinfo({master:req.session.user.username,filename: filename,path:newPath});
+      file.save(function (err,doc) {
+        console.log(doc);
+      });
+      fs.renameSync(files.resource.path, newPath);  //重命名
+      res.redirect('/file');
+    });
+  }else{
+    res.redirect('/')
+  }
 
-    var newPath = form.uploadDir + avatarName ;
-    fs.renameSync(files.resource.path, newPath);  //重命名
-  });
 };
 
 exports.download = function(req, res){
-  var path = 'public/upload/file.txt';  // 文件存储的路径
+  if(req.session.user){
+    var path = req.query.path;  // 文件存储的路径
+    console.log(path);
 
-  // filename:设置下载时文件的文件名，可不填，则为原名称
-  res.download(filepath, filename);
+    // filename:设置下载时文件的文件名，可不填，则为原名称
+    res.download(path);
+  }else{
+    res.redirect('/');
+  }
 };
+
+exports.userinfo = function (req,res) {
+  if(req.session.user){
+    res.render('userinfo',{user:req.session.user});
+  }else{
+    res.redirect('/');
+  }
+}
 
 exports.logout = function (req,res) {
   req.session.user = null;
