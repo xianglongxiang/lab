@@ -231,19 +231,19 @@ exports.submitDoc = function (req, res) {
       username:user.username,
       md:req.body.md,
     };
-    console.log(submitdoc);
+    //console.log(submitdoc);
 
     Doc.findOne({_id:req.body.id},function(err,doc){
       if(err){
         console.log(err);
         return;
       }
-      console.log(doc)
+      //console.log("1111"+doc);
       doc.submitdoc.push(submitdoc);
       doc.md = req.body.md;
       doc.savetime = Date.now();
       doc.save(function (err,doc) {
-        console.log(doc);
+        //console.log(doc);
         if(err){
           console.log(err);
           res.json({state:-1});

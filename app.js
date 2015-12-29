@@ -84,7 +84,17 @@ io.sockets.on('connection', function (socket) {
     if (!roomInfo[roomID]) {
       roomInfo[roomID] = [];
     }
-    roomInfo[roomID].push(user);
+
+    var j = 0
+    for(var i = 0; i < roomInfo[roomID].length; i ++){
+      if(roomInfo[roomID][i] == username){
+        j++;
+      }
+    }
+
+    if(j == 0){
+      roomInfo[roomID].push(user);
+    }
 
     console.log(roomInfo);
 
@@ -96,10 +106,22 @@ io.sockets.on('connection', function (socket) {
   // 接收用户消息,发送相应的房间
   socket.on('message', function (md) {
     // 验证如果用户不在房间内则不给发送
-    if (roomInfo[roomID].indexOf(user) === -1) {
+
+    var j = 0
+    for(var i = 0; i < roomInfo[roomID].length; i ++){
+      if(roomInfo[roomID][i] == user){
+        j++;
+      }
+    }
+
+    if(j == 0){
       return false;
     }
-    console.log(md);
+
+    //if (roomInfo[roomID].indexOf(user) == -1) {
+    //  return false;
+    //}
+    //console.log(md);
     //emit to 'room' except this socket client
     socket.broadcast.to(roomID).emit('md',user, md);
     //emit to all socket client in the room
