@@ -96,13 +96,16 @@
                 if(data.doc.md == undefined){
                     data.doc.md = "";
                 }
-                var insert = "<div class='docs-item' onclick='doc("+data.doc._id+")'><h4>"+data.doc.title+"</h4><small>创建者："+data.doc.master+"</small><div class='docs-preview'>"+data.doc.md+"</div></div>";
+                var insert = "<div class='docs-item'><h4>"+data.doc.title+"</h4><small>创建者："+data.doc.master+"</small><div class='docs-preview'>"+data.doc.md+"</div></div>";
                 if($('.docs-item').length != 0){
                     $('.docs-item:first').before(insert);
                 }else{
                     $('.docs-create').after(insert);
                 }
-
+                $('.docs-item:first').bind('click',function(){
+                    doc(data.doc._id);
+                });
+                removeCon();
             }else if(data.state == -1){
                 alert("共享文档创建失败！");
             }
