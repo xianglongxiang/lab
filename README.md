@@ -4,13 +4,9 @@
 - 实验室设备管理登记表（模态框+列表）
 - issue实验室项目讨论
 - __md文档编辑（个人博客系统），在线预览及生成页面__
-- 手机端兼容性
-- 最好能用react实现对应的app
 
 ## 架构
-nodejs + mongodb + react/angular（或其他）
+nodejs + mongodb
 
 ## 注意点
 - 前端模块化
-- 布局采用Flex(不考虑兼容性)
-- 采用百度的fis3 
