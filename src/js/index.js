@@ -27,10 +27,16 @@ zf.ready(function(){
       roll(container,611,2);
     } else if(this.hash === '#detail1'){
       roll(container,1111,2);
+      zf('.h3-1').addClass('h3-on');
+      zf('.img-1').addClass('img-on');
     } else if(this.hash === '#detail2'){
       roll(container,2501,2);
+      zf('.h3-2').addClass('h3-on');
+      zf('.img-2').addClass('img-on');
     } else if(this.hash === '#detail3'){
       roll(container,4091,2);
+      zf('.h3-3').addClass('h3-on');
+      zf('.img-3').addClass('img-on');
     }
   });
 
@@ -40,8 +46,13 @@ zf.ready(function(){
       zf('#nav-one').addClass('on')
       zf('#nav-two').removeClass('on');
       zf('#nav-four').removeClass('on');
+      zf('.h3-1').removeClass('h3-on');
+      zf('.img-1').removeClass('img-on');
+      zf('.h3-2').removeClass('h3-on');
+      zf('.img-2').removeClass('img-on');
+      zf('.h3-3').removeClass('h3-on');
+      zf('.img-3').removeClass('img-on');
     }else if(topH >= 600 && topH <= 1107){
-      console.log(1);
       zf('#nav-two').addClass('on')
       zf('#nav-one').removeClass('on');
       zf('#nav-three').removeClass('on');
@@ -49,13 +60,31 @@ zf.ready(function(){
       zf('#nav-two').removeClass('on');
       zf('#nav-three').addClass('on')
       zf('#nav-four').removeClass('on');
+      zf('.h3-2').removeClass('h3-on');
+      zf('.img-2').removeClass('img-on');
+      zf('.h3-3').removeClass('h3-on');
+      zf('.img-3').removeClass('img-on');
+      zf('.h3-1').addClass('h3-on');
+      zf('.img-1').addClass('img-on');
     }else if(topH >= 2498 && topH <= 4080){
       zf('#nav-three').removeClass('on');
       zf('#nav-four').addClass('on')
       zf('#nav-five').removeClass('on')
+      zf('.h3-1').removeClass('h3-on');
+      zf('.img-1').removeClass('img-on');
+      zf('.h3-3').removeClass('h3-on');
+      zf('.img-3').removeClass('img-on');
+      zf('.h3-2').addClass('h3-on');
+      zf('.img-2').addClass('img-on');
     }else if(topH >= 4080){
       zf('#nav-four').removeClass('on');
       zf('#nav-five').addClass('on')
+      zf('.h3-3').addClass('h3-on');
+      zf('.img-3').addClass('img-on');
+      zf('.h3-1').removeClass('h3-on');
+      zf('.img-1').removeClass('img-on');
+      zf('.h3-2').removeClass('h3-on');
+      zf('.img-2').removeClass('img-on');
     }
   });
 

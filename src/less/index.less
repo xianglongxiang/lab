@@ -142,6 +142,22 @@ body {
 .less-img{
   width: 100%;
   max-width: 720px;
+  margin-left: -300px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.less-img-on{
+  margin-left: 0;
+  opacity: 1;
+}
+.less-h3{
+  margin-left: 600px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.less-h3-on{
+  margin-left: 0;
+  opacity: 1;
 }
 .lab-detail1{
   padding-bottom: 20px;
@@ -155,8 +171,17 @@ body {
       border-top: 1px solid rgba(0,0,0,0.2);
       border-style: dashed none none none;
     }
-    img{
+    .h3-1{
+      .less-h3;
+    }
+    .h3-on{
+      .less-h3-on;
+    }
+    .img-1{
       .less-img;
+    }
+    .img-on{
+      .less-img-on
     }
   }
   .fa-hand-o-right{
@@ -177,8 +202,17 @@ body {
       border-top: 1px solid rgba(0,0,0,0.2);
       border-style: dashed none none none;
     }
-    img{
+    .h3-2{
+      .less-h3;
+    }
+    .h3-on{
+      .less-h3-on;
+    }
+    .img-2{
       .less-img;
+    }
+    .img-on{
+      .less-img-on
     }
   }
   .fa-hand-o-right{
@@ -199,8 +233,17 @@ body {
       border-top: 1px solid rgba(0,0,0,0.2);
       border-style: dashed none none none;
     }
-    img{
+    .h3-3{
+      .less-h3;
+    }
+    .h3-on{
+      .less-h3-on;
+    }
+    .img-3{
       .less-img;
+    }
+    .img-on{
+      .less-img-on
     }
   }
   .fa-hand-o-right{

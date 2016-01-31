@@ -136,6 +136,22 @@ body {
 .less-img {
   width: 100%;
   max-width: 720px;
+  margin-left: -300px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.less-img-on {
+  margin-left: 0;
+  opacity: 1;
+}
+.less-h3 {
+  margin-left: 600px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.less-h3-on {
+  margin-left: 0;
+  opacity: 1;
 }
 .lab-detail1 {
   padding-bottom: 20px;
@@ -156,9 +172,25 @@ body {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-style: dashed none none none;
 }
-.lab-detail1 .intro img {
+.lab-detail1 .intro .h3-1 {
+  margin-left: 600px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail1 .intro .h3-on {
+  margin-left: 0;
+  opacity: 1;
+}
+.lab-detail1 .intro .img-1 {
   width: 100%;
   max-width: 720px;
+  margin-left: -300px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail1 .intro .img-on {
+  margin-left: 0;
+  opacity: 1;
 }
 .lab-detail1 .fa-hand-o-right {
   margin-right: 10px;
@@ -184,9 +216,25 @@ body {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-style: dashed none none none;
 }
-.lab-detail2 .intro img {
+.lab-detail2 .intro .h3-2 {
+  margin-left: 600px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail2 .intro .h3-on {
+  margin-left: 0;
+  opacity: 1;
+}
+.lab-detail2 .intro .img-2 {
   width: 100%;
   max-width: 720px;
+  margin-left: -300px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail2 .intro .img-on {
+  margin-left: 0;
+  opacity: 1;
 }
 .lab-detail2 .fa-hand-o-right {
   margin-right: 10px;
@@ -212,9 +260,25 @@ body {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-style: dashed none none none;
 }
-.lab-detail3 .intro img {
+.lab-detail3 .intro .h3-3 {
+  margin-left: 600px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail3 .intro .h3-on {
+  margin-left: 0;
+  opacity: 1;
+}
+.lab-detail3 .intro .img-3 {
   width: 100%;
   max-width: 720px;
+  margin-left: -300px;
+  transition: all 1.5s ease;
+  opacity: 0;
+}
+.lab-detail3 .intro .img-on {
+  margin-left: 0;
+  opacity: 1;
 }
 .lab-detail3 .fa-hand-o-right {
   margin-right: 10px;
