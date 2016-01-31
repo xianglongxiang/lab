@@ -106,21 +106,21 @@ function createIssue() {
 }
 
 
-/*点击返回顶部*/
-$(window).scroll(function() {
-    if ($(this).scrollTop() > 50) {
-        $('#scrollUp').fadeIn();
-    } else {
-        $('#scrollUp').fadeOut();
-    }
-});
-// scroll body to 0px on click
-$('#scrollUp').click(function() {
-    $('#scrollUp').tooltip('hide');
-    $('body,html').animate({
-        scrollTop: 0
-    }, 200);
-    return false;
-});
+///*点击返回顶部*/
+//$(window).scroll(function() {
+//    if ($(this).scrollTop() > 50) {
+//        $('#scrollUp').fadeIn();
+//    } else {
+//        $('#scrollUp').fadeOut();
+//    }
+//});
+//// scroll body to 0px on click
+//$('#scrollUp').click(function() {
+//    $('#scrollUp').tooltip('hide');
+//    $('body,html').animate({
+//        scrollTop: 0
+//    }, 200);
+//    return false;
+//});
 
 

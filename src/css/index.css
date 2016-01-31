@@ -1,12 +1,4 @@
 /*共享style*/
-@keyframes myfirst {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .btn-green {
   width: 7rem;
   color: #ffffff;
@@ -16,12 +8,15 @@
   padding: 0.4rem 0.8rem;
 }
 .on {
-  margin: 0;
+  margin: -50px;
   opacity: 1;
 }
 /*共享style*/
-body {
+html {
   font-size: 16px;
+}
+body {
+  font-family: Helvetica, Tahoma, Arial, STXihei, " 华文细黑 ", "Microsoft YaHei", " 微软雅黑 ", sans-serif;
 }
 .nav {
   position: fixed;
@@ -42,54 +37,51 @@ body {
   width: 10px;
   height: 10px;
   margin: 15px auto;
-  transition: all 1.5s ease;
+  transition: all 0.5s ease;
 }
 .nav ul li .on {
   width: 20px;
   height: 20px;
 }
-.lab-head {
-  position: relative;
-  width: 100%;
-  max-height: 536px;
-  background: url("../img/header-bg.jpg") no-repeat center top;
-  background-size: 100%;
+.lab-header {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-height: 785px;
   overflow: hidden;
+  background: url("../img/header-bg.jpg") no-repeat center;
 }
-.lab-head .lab-head-title {
+.lab-header .title {
   text-align: center;
   z-index: 1;
 }
-.lab-head .lab-head-title img {
+.lab-header .title .logo {
   margin-top: -100px;
-  height: 100px;
-  width: 500px;
+  height: 90px;
+  width: 450px;
   transition: all 1.5s ease;
   opacity: 0;
 }
-.lab-head .lab-head-title .on {
+.lab-header .title .on {
   margin: 0;
   opacity: 1;
 }
-.lab-head .lab-head-title .on1 {
-  margin-top: 2rem;
+.lab-header .title .on1 {
+  margin-top: 1.5rem;
+  opacity: 1!important;
+}
+.lab-header .title .on2 {
+  margin-top: 1.5rem;
   opacity: 1;
 }
-.lab-head .lab-head-title .on2 {
-  margin-top: 2rem;
-  opacity: 1;
-}
-.lab-head .lab-head-title p {
+.lab-header .title .logo1 {
   color: rgba(255, 255, 255, 0.7);
   font-size: 2rem;
   transition: all 1.5s ease;
   opacity: 0;
-  margin-top: 100px;
 }
-.lab-head .lab-head-title button {
+.lab-header .title button {
   width: 7rem;
   color: #ffffff;
   border-radius: 4px;
@@ -100,40 +92,137 @@ body {
   opacity: 0;
   margin-top: 100px;
 }
-.lab-head .lab-head-title button:hover {
+.lab-header .title button:hover {
   background: rgba(88, 185, 87, 0.8);
 }
-.lab-head .lab-head-title button:nth-of-type(1) {
+.lab-header .title button:nth-of-type(1) {
   margin-right: 1rem;
 }
-.lab-main {
+.less-p {
+  margin: 0;
+  padding: 4rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(68, 68, 68, 0.9);
+}
+.lab-detail {
   height: 500px;
   width: 100%;
   background: url("../img/pat.png") no-repeat center top;
   animation: myfirst 3s;
 }
-.lab-main p {
+.lab-detail .title {
+  margin: 0;
   padding: 4rem;
   text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
+  color: rgba(68, 68, 68, 0.9);
 }
-.lab-main .lab-main-detail {
+.lab-detail .detail {
   display: flex;
   width: 100%;
   text-align: center;
 }
-.lab-main .lab-main-detail div {
+.lab-detail .detail div {
   flex: 1;
 }
-.lab-main .lab-main-detail div img {
+.lab-detail .detail div img {
   border-radius: 10px;
   zoom: 0.9;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
+.less-img {
+  width: 100%;
+  max-width: 720px;
+}
+.lab-detail1 {
+  padding-bottom: 20px;
+}
+.lab-detail1 .title {
+  margin: 0;
+  padding: 4rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(68, 68, 68, 0.9);
+}
+.lab-detail1 .intro {
+  margin: 0 auto;
+  width: 720px;
+}
+.lab-detail1 .intro .item {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-style: dashed none none none;
+}
+.lab-detail1 .intro img {
+  width: 100%;
+  max-width: 720px;
+}
+.lab-detail1 .fa-hand-o-right {
+  margin-right: 10px;
+  color: #00e385;
+}
+.lab-detail2 {
+  padding-bottom: 20px;
+  background: #f4f4f4;
+}
+.lab-detail2 .title {
+  margin: 0;
+  padding: 4rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(68, 68, 68, 0.9);
+}
+.lab-detail2 .intro {
+  margin: 0 auto;
+  width: 720px;
+}
+.lab-detail2 .intro .item {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-style: dashed none none none;
+}
+.lab-detail2 .intro img {
+  width: 100%;
+  max-width: 720px;
+}
+.lab-detail2 .fa-hand-o-right {
+  margin-right: 10px;
+  color: #00e385;
+}
+.lab-detail3 {
+  padding-bottom: 20px;
+  background: #f7f4ed;
+}
+.lab-detail3 .title {
+  margin: 0;
+  padding: 4rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgba(68, 68, 68, 0.9);
+}
+.lab-detail3 .intro {
+  margin: 0 auto;
+  width: 720px;
+}
+.lab-detail3 .intro .item {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-style: dashed none none none;
+}
+.lab-detail3 .intro img {
+  width: 100%;
+  max-width: 720px;
+}
+.lab-detail3 .fa-hand-o-right {
+  margin-right: 10px;
+  color: #00e385;
+}
 footer {
   width: 100%;
-  margin-top: 5rem;
+  margin-top: 2rem;
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
 }

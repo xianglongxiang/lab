@@ -105,7 +105,7 @@
       var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
       for (var i = 0; i < this.length; i++) {
         if (this[i].className.match(reg)) {
-          this[i].className = this[i].className.replace(' ' + cls, '');
+          this[i].className = this[i].className.replace(cls, '');
         }
       }
       return this;
@@ -252,13 +252,16 @@
   //agent是父元素，selector是子元素
   function delegate(agent,type,selector,fn){
     agent.addEventListener(type,function(e) {
-      var target = e.target;//目标元素,点击的元素
-      var cTarget = e.currentTarget;//当前正在处理事件的元素，父元素
+      //目标元素,点击的元素
+      var target = e.target;
+      //当前正在处理事件的元素，父元素
+      var cTarget = e.currentTarget;
       var bubbles = true;
       while (bubbles && target !== cTarget) {
         if (filter(agent, selector, target)) {
           //filter为true，执行回调
           //将this改为target
+          console.log(target);
           bubbles = fn.call(target, e);
         }
         target = target.parentNode;
@@ -266,17 +269,16 @@
       }
     },false);
 
-    //判断目标元素是否在代理中
+    //判断目标元素是否在代理中，目标元素是最底层的元素
     function filter(agent,selector,target){
       var nodes = agent.querySelectorAll(selector);
-      var i;
-      for(i = 0;i < nodes.length;i++){
+      for(var i = 0,length = nodes.length;i < length;i++){
         if(nodes[i] === target){
+          console.log(true);
           return true;
         }
       }
     }
-
   }
 
   function isArray(obj) {

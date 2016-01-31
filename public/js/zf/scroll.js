@@ -1,0 +1,2 @@
+!function(o){var l,c,r;l=o.document,c=function(o){o.scrollTop=o.scrollTop+1},r=function(c,r,n){var e,s;s="BODY"==c.nodeName?l.body.scrollHeight-o.innerHeight:c.scrollHeight-c.clientHeight,r=r>s?s:r,n=n||10,e=setInterval(function(){c.scrollTop<r-10?c.scrollTop=c.scrollTop+10:c.scrollTop>r+10?c.scrollTop=c.scrollTop-10:c.scrollTop>=r-10&&c.scrollTop<=r+10&&clearInterval(e)},n)},o.roll=r}(window);
+//# sourceMappingURL=../zf/scroll.js.map
