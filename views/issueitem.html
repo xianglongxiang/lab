@@ -128,7 +128,7 @@
         new Editor($("#md-comment")[0], $("#preview-comment")[0]);
         var temp = "<div class='zf-modal' style='border-radius: 10px;background:rgba(255,255,255,1)'><div class='modal-header' style='padding: 9px 15px;border-bottom: 1px solid #eee'><h3 style='margin:0'>创建issue</h3></div><div class='modal-main' style='padding:15px'><input id='title' type='text' name='username' placeholder='issue标题' style='display:block;width:100%;margin: 10px 0px;padding: 10px 12px;border:1px solid #ccc;border-radius: 4px;'></div><div class='lab-issue-submit' style='padding:0 15px'><textarea class='text-input' id='lab-create-input' oninput='this.editor.update()' rows='12' cols='55'>Edit at here ,please use **Markdown**.</textarea><div id='lab-preview-input' class='preview'></div></div><div class='modal-footer' style='padding:14px 15px 15px;background-color: #f5f5f5;border-top:1px solid #ddd;box-shadow: inset 0 1px 0 #ffffff;border-bottom-left-radius:10px;border-bottom-right-radius:10px;overflow: hidden;'><button class='btn-green' style='float: right' onclick='createIssue()'>Submit</button><button class='btn-white' style='margin-right: 10px; float: right;' onclick='removeCon()'>Close</button></div></div>";
         $('#lab-issue-create').bind('click',function(){
-            msgbox(temp,'',600,876);
+            zfAlert(temp,'',600,876);
             $('.msg').addClass('on3');
             new Editor($("#lab-create-input")[0], $("#lab-preview-input")[0]);
         });
