@@ -96,6 +96,7 @@
       var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
       for (var i = 0; i < this.length; i++) {
         if(!this[i].className.match(reg)) {
+          //this[i].className += ' ' + cls;
           this[i].className += ' ' + cls;
         }
       }

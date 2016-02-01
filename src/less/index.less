@@ -128,7 +128,10 @@ body {
   .detail {
     display: flex;
     width: 100%;
+    padding-top: 20px;
     text-align: center;
+    transition: all 1.5s ease;
+    opacity: 0;
     div {
       flex: 1;
       img {
@@ -137,6 +140,9 @@ body {
         box-shadow: 0 10px 20px RGBA(0, 0, 0, 0.5);
       }
     }
+  }
+  .detail-on{
+    opacity: 1;
   }
 }
 .less-img{

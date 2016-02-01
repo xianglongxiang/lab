@@ -46,6 +46,13 @@ zf.ready(function(){
       zf('#nav-one').addClass('on')
       zf('#nav-two').removeClass('on');
       zf('#nav-four').removeClass('on');
+
+      zf('.logo').addClass('on');
+      zf('.logo1').addClass('on1');
+      zf('#login').addClass('on2');
+      zf('#register').addClass('on2');
+
+      zf('.detail').removeClass('detail-on');
       zf('.h3-1').removeClass('h3-on');
       zf('.img-1').removeClass('img-on');
       zf('.h3-2').removeClass('h3-on');
@@ -56,10 +63,18 @@ zf.ready(function(){
       zf('#nav-two').addClass('on')
       zf('#nav-one').removeClass('on');
       zf('#nav-three').removeClass('on');
+
+      zf('.detail').addClass('detail-on');
+      zf('.logo').removeClass('on');
+      zf('.logo1').removeClass('on1');
+      zf('#login').removeClass('on2');
+      zf('#register').removeClass('on2');
     }else if(topH >= 1107 && topH <= 2498){
       zf('#nav-two').removeClass('on');
       zf('#nav-three').addClass('on')
       zf('#nav-four').removeClass('on');
+
+      zf('.detail').removeClass('detail-on');
       zf('.h3-2').removeClass('h3-on');
       zf('.img-2').removeClass('img-on');
       zf('.h3-3').removeClass('h3-on');
@@ -70,6 +85,7 @@ zf.ready(function(){
       zf('#nav-three').removeClass('on');
       zf('#nav-four').addClass('on')
       zf('#nav-five').removeClass('on')
+
       zf('.h3-1').removeClass('h3-on');
       zf('.img-1').removeClass('img-on');
       zf('.h3-3').removeClass('h3-on');
@@ -79,6 +95,7 @@ zf.ready(function(){
     }else if(topH >= 4080){
       zf('#nav-four').removeClass('on');
       zf('#nav-five').addClass('on')
+
       zf('.h3-3').addClass('h3-on');
       zf('.img-3').addClass('img-on');
       zf('.h3-1').removeClass('h3-on');
@@ -87,8 +104,6 @@ zf.ready(function(){
       zf('.img-2').removeClass('img-on');
     }
   });
-
-
 });
 
 function register(){
