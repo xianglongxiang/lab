@@ -28,16 +28,16 @@ zf.ready(function(){
       roll(container,611,2);
     } else if(this.hash === '#detail1'){
       roll(container,1111,2);
-      zf('.h3-1').addClass('h3-on');
-      zf('.img-1').addClass('img-on');
+      //zf('.h3-1').addClass('h3-on');
+      //zf('.img-1').addClass('img-on');
     } else if(this.hash === '#detail2'){
       roll(container,2501,2);
-      zf('.h3-2').addClass('h3-on');
-      zf('.img-2').addClass('img-on');
+      //zf('.h3-2').addClass('h3-on');
+      //zf('.img-2').addClass('img-on');
     } else if(this.hash === '#detail3'){
       roll(container,4091,2);
-      zf('.h3-3').addClass('h3-on');
-      zf('.img-3').addClass('img-on');
+      //zf('.h3-3').addClass('h3-on');
+      //zf('.img-3').addClass('img-on');
     }
   });
 
