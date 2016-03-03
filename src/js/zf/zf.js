@@ -1,12 +1,11 @@
 /*
-* 添加
-* 事件代理
-* */
+ * zfUtil
+ */
 
 (function(window,docment){
   'use strict';
   var w = window,
-      doc = docment;
+    doc = docment;
   var Zf = function (selector) {
     return Zf.prototype.init(selector);
   };
@@ -94,37 +93,55 @@
     },
     addClass : function(cls) {
       var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-      for (var i = 0; i < this.length; i++) {
+      for (var i = 0, len = this.length; i < len; i++) {
         if(!this[i].className.match(reg)) {
-          //this[i].className += ' ' + cls;
-          this[i].className += ' ' + cls;
+          if(this[i].className){
+            this[i].className += ' ' + cls;
+          }else {
+            this[i].className += cls;
+          }
         }
       }
       return this;
     },
     removeClass : function(cls) {
       var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-      for (var i = 0; i < this.length; i++) {
+      var classes = new Array();
+      for (var i = 0, len = this.length; i < len; i++) {
         if (this[i].className.match(reg)) {
-          this[i].className = this[i].className.replace(cls, '');
+          classes = this[i].className.split(' ');
+          if(classes.length > 1){
+            this[i].className = this[i].className.replace(' ' + cls, '');
+          }else {
+            this[i].className = this[i].className.replace(cls, '');
+          }
+
         }
       }
       return this;
     },
     bind : function(type,callback){
-      for (var i = 0; i < this.length; i++) {
-        this[i].addEventListener(type,callback,false);
+      if(doc.addEventListener){
+        for (var i = 0; i < this.length; i++) {
+          this[i].addEventListener(type,callback,false);
+        }
+      } else if(doc.attachEvent){
+        for (var i = 0; i < this.length; i++) {
+          this[i].attachEvent(type, callback);
+        }
       }
+
       return this;
     }
 
   };
 
   Zf.each = function(obj,callback){
-    var len = obj.length,
-        con = obj.constructor,
-        i,
-        val;
+    var
+      len = obj.length,
+      con = obj.constructor,
+      i,
+      val;
     if(con === w.zf){
       for(i = 0;i < len ; i++){
         val = callback.call(obj[i], i, obj[i]);
@@ -253,16 +270,13 @@
   //agent是父元素，selector是子元素
   function delegate(agent,type,selector,fn){
     agent.addEventListener(type,function(e) {
-      //目标元素,点击的元素
-      var target = e.target;
-      //当前正在处理事件的元素，父元素
-      var cTarget = e.currentTarget;
+      var target = e.target;//目标元素,点击的元素
+      var cTarget = e.currentTarget;//当前正在处理事件的元素，父元素
       var bubbles = true;
       while (bubbles && target !== cTarget) {
         if (filter(agent, selector, target)) {
           //filter为true，执行回调
           //将this改为target
-          console.log(target);
           bubbles = fn.call(target, e);
         }
         target = target.parentNode;
@@ -270,12 +284,12 @@
       }
     },false);
 
-    //判断目标元素是否在代理中，目标元素是最底层的元素
+    //判断目标元素是否在代理中
     function filter(agent,selector,target){
       var nodes = agent.querySelectorAll(selector);
-      for(var i = 0,length = nodes.length;i < length;i++){
+      var i;
+      for(i = 0;i < nodes.length;i++){
         if(nodes[i] === target){
-          console.log(true);
           return true;
         }
       }
@@ -290,4 +304,3 @@
   Zf.prototype.init.prototype = Zf.prototype;
   w.zf = Zf;
 })(window,document);
-

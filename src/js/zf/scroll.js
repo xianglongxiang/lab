@@ -4,13 +4,9 @@
 (function(win){
   var
     doc,
-    rolling,
     init;
   doc = win.document;
 
-  rolling = function(container){
-    container.scrollTop = container.scrollTop + 1;
-  };
   init =  function(container,postion,speed){
     var timer;
     var maxH;
@@ -23,13 +19,15 @@
     speed = (speed || 10);
     //设置定时器
     timer = setInterval(function(){
-      if(container.scrollTop < (postion - 10)){
-        container.scrollTop = container.scrollTop + 10;
-      }else if(container.scrollTop > postion + 10){
-        container.scrollTop = container.scrollTop - 10;
-      }else if(container.scrollTop >= (postion - 10) && container.scrollTop <= (postion + 10)){
+      var top = container.scrollTop;
+      if(top < (postion - 10)){
+        top = top + 10;
+      }else if(top > postion + 10){
+        top = top - 10;
+      }else if(top >= (postion - 10) && top <= (postion + 10)){
         clearInterval(timer);
       }
+      container.scrollTop = top;
     },speed);
 
   };

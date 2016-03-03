@@ -60,7 +60,7 @@ body {
   margin-top: -100px;
   height: 90px;
   width: 450px;
-  transition: all 1.5s ease;
+  transition: all 1s linear;
   opacity: 0;
 }
 .lab-header .title .on {
@@ -78,7 +78,7 @@ body {
 .lab-header .title .logo1 {
   color: rgba(255, 255, 255, 0.7);
   font-size: 2rem;
-  transition: all 1.5s ease;
+  transition: all 1s linear;
   opacity: 0;
 }
 .lab-header .title button {
@@ -88,7 +88,7 @@ body {
   background: #58b957;
   border: 1px solid rgba(72, 175, 70, 0.8);
   padding: 0.4rem 0.8rem;
-  transition: all 1.5s ease;
+  transition: all 1s linear;
   opacity: 0;
   margin-top: 100px;
 }
